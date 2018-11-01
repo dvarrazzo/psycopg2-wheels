@@ -45,8 +45,6 @@ environment:
     PGUSER: postgres
     PGPASSWORD: Password12!
 
-    REMOTE_KEY:
-        secure: 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
 
 matrix:
     fast_finish: false
@@ -295,44 +293,20 @@ artifacts:
     - path: psycopg2\dist\psycopg2-$(PYVERDIR)\*.exe
       name: exe
 
-deploy: off
+deploy:
+  description: 'GitHub Release'
+  provider: GitHub
+  repository: dvarrazzo/psycopg2-wheels
+  auth_token:
+    secure: lnmN8wztoarwlup/kvEuSWOqPYrct7ENiakbSjIT1cqy/TKTDFO7R22JSH1pBLmI
+  artifact: wheel,exe
+  on:
+    appveyor_repo_tag: true
+
 #before_deploy: # Script
 #deploy_script:
 #after_deploy: #Script
 
-#deployment_success: # Webhooks
-on_success: # Script
-#  You can use this step to upload your artifacts to a public website.
-#  See Appveyor's documentation for more details. Or you can simply
-#  access your wheels from the Appveyor "artifacts" tab for your build.
-    - ECHO "Starting Artifact Deployment"
-    - CD C:\Project\psycopg2
-
-    - ECHO SHA1 Hashes
-    - ECHO ====================================================================
-    - CD dist
-    - sha1sum -b psycopg2-%PYVERDIR%/*
-    - CD ..
-
-    # If we are not on the psycopg AppVeyor account, the environment variable
-    # REMOTE_KEY will not be decrypted and therefor undefined.  Define it with
-    # a string so that we do not get errors when building outside the psycopg
-    # account
-    - ps: If (-not (Test-Path env:REMOTE_KEY)) { $env:REMOTE_KEY = 'empty' }
-
-
-    # Insert SSH Private Key from environment variable
-    - ps: $fileContent = "-----BEGIN RSA PRIVATE KEY-----`n"
-    - ps: $fileContent += $env:REMOTE_KEY.Replace(" ", "`n")
-    - ps: $fileContent += "`n-----END RSA PRIVATE KEY-----`n"
-    - ps: Set-Content C:\Project\id_rsa $fileContent
-
-    # Make a directory to please MinGW's version of ssh
-    - MKDIR C:\MinGW\msys\1.0\home\appveyor\.ssh
-    # Only upload if the computer is 'online' and being built by the psycopg
-    # AppVeyor account
-    - ps: If (($env:APPVEYOR_ACCOUNT_NAME -eq "psycopg") -and (Test-Connection -ComputerName initd.org -Count 1 -Quiet)) { C:\MinGW\msys\1.0\bin\rsync -avr -e "C:\\MinGW\\msys\\1.0\\bin\\ssh -i C:\\Project\\id_rsa -o UserKnownHostsFile=C:\\Project\\known_hosts" "dist/" "upload@initd.org:" }
-# Cache is saved after ending of on_success
 
 #build_failure: # Webhooks
 #deployment_failure: # Webhooks
