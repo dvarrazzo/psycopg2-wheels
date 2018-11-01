@@ -42,16 +42,25 @@ matrix:
             PACKAGE_NAME="psycopg2-binary"
 
 before_script:
-    # Set up files required for upload
-    - openssl aes-256-cbc
-      -K $encrypted_bd656d6a5753_key -iv $encrypted_bd656d6a5753_iv
-      -in id_rsa-travis-upload.enc -out /tmp/id_rsa-travis-upload -d
-    - chmod 600 known_hosts /tmp/id_rsa-travis-upload
     - sudo ./scripts/configure_postgres.sh
 
 script: $SCRIPT
 
-after_success: ./scripts/upload_packages.sh
-
 notifications:
   email: false
+
+before_deploy:
+    - pwd
+    - ls -l psycopg2/dist/*/*
+
+deploy:
+  provider: releases
+  api_key:
+    secure: Yn3oByKdMwMMN6ed6rSSnLRigcTfYZO4QmDleTK0soQOmBsCEfe2f0nfFCIAtklxj7QBBGeoJlJD7NIJrAeqVvRfV39Uurfro2DaoqsRC0TjLN39xV2R3A6vBNcCaYneHaln0MncMRTitvJpcqJ3T/k4Au76ywiNhD85G5kl2mQohCjNSU5ftovCUbevt7VgjDCyXLn7guJVe2L3SVLiteFmVIF8jC/pexbVULbmJEqGtykSuUk3PVi2SsYh7eY3MPULyR559StWBCdtsp7fN78kbm8kE5igAqz3WfbdP8Rl+pgAzm6qvL04x4C6+E9QOjKF+AjeWVAkQrbCLaY7YGH658lxqE9vPYydhRzEywP68+xanA1FD7BZ7mGuxDuk1P7AI49t2yDM9eHa2E0sMh8SaZn3HYXWPFeiiwGcOwkUkna6vzavpD2z1sGuwHnLRJVYHUB4g2CKl+KY9sb2tzygnBb49nU/WTADgT7cfZZhg69cddAtcZmfg+yk6XUlSi/26hLw8zeX6v8irdwch+X5v6xEsf5LHWqPyZeVEvP2WfQcaBX8FWaQeJ7hPVeWpcmIgtfXl/pojz/9VzVQX5my08VXd4eYiBSqaB7tcypB2SSPUWNp0pEtb0j8jm2U4vVZBUmbvUDvzHOf8aqBsIx/NnQhfYJA1c+TxvMRMCY=
+  file_glob: true
+  file: psycopg2/dist/*/*
+  skip_cleanup: true
+  overwrite: true
+  on:
+    repo: dvarrazzo/psycopg2-wheels
+    tags: true
