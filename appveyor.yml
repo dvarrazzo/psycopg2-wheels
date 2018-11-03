@@ -296,7 +296,7 @@ artifacts:
 deploy:
   description: 'GitHub Release'
   provider: GitHub
-  repository: dvarrazzo/psycopg2-wheels
+  repository: dvarrazzo/psycopg2
   auth_token:
     secure: lnmN8wztoarwlup/kvEuSWOqPYrct7ENiakbSjIT1cqy/TKTDFO7R22JSH1pBLmI
   artifact: wheel,exe
